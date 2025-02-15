@@ -1,0 +1,15 @@
+{% block content %}
+<div class="container">
+    <h2>Editar Producto</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label>Nombre:</label>
+        <input type="text" name="nombre" value="{{ producto.nombre }}" class="form-control">
+        <label>Descripción:</label>
+        <textarea name="descripcion" class="form-control">{{ producto.descripcion }}</textarea>
+        <label>Precio:</label>
+        <input type="number" name="precio" value="{{ producto.precio }}" class="form-control">
+        <button type="submit" class="btn btn-success mt-3">Guardar Cambios</button>
+    </form>
+</div>
+{% endblock %}

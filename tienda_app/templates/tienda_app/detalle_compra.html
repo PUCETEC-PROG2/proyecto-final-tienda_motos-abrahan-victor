@@ -1,0 +1,30 @@
+<!-- filepath: /c:/Users/ASUS/Desktop/proyecto/tienda/tienda_app/templates/tienda_app/detalle_compra.html -->
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1 class="my-4">Detalles de la Compra</h1>
+<p><strong>ID de la Compra:</strong> {{ compra.id }}</p>
+<p><strong>Cliente:</strong> {{ compra.cliente.nombre }}</p>
+<p><strong>Fecha:</strong> {{ compra.fecha }}</p>
+<p><strong>Total:</strong> ${{ compra.total }}</p>
+
+<h2 class="mt-4">Productos Comprados</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for detalle in detalles %}
+        <tr>
+            <td>{{ detalle.producto.nombre }}</td>
+            <td>{{ detalle.cantidad }}</td>
+            <td>${{ detalle.subtotal }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

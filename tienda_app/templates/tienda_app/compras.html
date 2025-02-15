@@ -1,0 +1,33 @@
+{% extends "base_generic.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="my-4">Lista de Compras</h1>
+    <a href="{% url 'agregar_compra' %}" class="btn btn-primary mb-3">Agregar Compra</a>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Fecha</th>
+                <th>Total</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for compra in compras %}
+                <tr>
+                    <td>{{ compra.id }}</td>
+                    <td>{{ compra.cliente.nombre }}</td>
+                    <td>{{ compra.fecha }}</td>
+                    <td>{{ compra.total }}</td>
+                    <td>
+                        <a href="{% url 'detalle_compra' compra.id %}" class="btn btn-info">Detalles</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+<!-- filepath: /c:/Users/ASUS/Desktop/proyecto/tienda/tienda_app/templates/tienda_app/editar_cliente.html -->
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Editar Cliente</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+</form>
+{% endblock %}

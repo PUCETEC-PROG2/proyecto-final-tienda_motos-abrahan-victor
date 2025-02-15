@@ -1,0 +1,14 @@
+<!-- filepath: /c:/Users/ASUS/Desktop/proyecto/tienda/tienda_app/templates/tienda_app/agregar_producto.html -->
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1 class="my-4">Agregar Producto</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        {{ form.as_p }}
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a href="{% url 'home' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

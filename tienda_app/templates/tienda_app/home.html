@@ -1,0 +1,56 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1 class="my-4 text-center">Bienvenido a Mi Tienda</h1>
+
+<div class="container mt-4">
+    <h2 class="text-center">Productos Disponibles</h2>
+
+    <!-- Botón para agregar producto (visible solo para superusuarios) -->
+    {% if user.is_authenticated and user.is_superuser %}
+        <div class="text-center mb-3">
+            <a href="{% url 'agregar_producto' %}" class="btn btn-success">Agregar Producto</a>
+        </div>
+    {% endif %}
+
+    <div class="row">
+        {% for producto in productos %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="{{ producto.imagen.url }}" class="card-img-top fixed-size-img" alt="{{ producto.nombre }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ producto.nombre }}</h5>
+                        <p class="card-text">
+                            {{ producto.descripcion|truncatewords:20 }}
+                            <span class="d-none" id="full-description-{{ producto.id }}">{{ producto.descripcion }}</span>
+                        </p>
+                        <p class="card-text"><strong>Precio:</strong> ${{ producto.precio }}</p>
+                        <button class="btn btn-primary" onclick="toggleDescription({{ producto.id }})">Ver más</button>
+                        <!-- Opciones de edición solo para el administrador -->
+                        {% if user.is_authenticated and user.is_superuser %}
+                            <a href="{% url 'editar_producto' producto.id %}" class="btn btn-warning">Editar</a>
+                            <a href="{% url 'eliminar_producto' producto.id %}" class="btn btn-danger">Eliminar</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-center">No hay productos en esta categoría.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+function toggleDescription(productId) {
+    const fullDescription = document.getElementById(`full-description-${productId}`);
+    const button = event.target;
+    if (fullDescription.classList.contains('d-none')) {
+        fullDescription.classList.remove('d-none');
+        button.textContent = 'Ver menos';
+    } else {
+        fullDescription.classList.add('d-none');
+        button.textContent = 'Ver más';
+    }
+}
+</script>
+{% endblock %}

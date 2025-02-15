@@ -1,0 +1,31 @@
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Agregar Compra</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Muestra el formulario con el campo del cliente -->
+        
+        <h4>Seleccionar Productos:</h4>
+        <div class="form-group">
+            <label for="productos">Productos</label>
+            <select name="productos" id="productos" multiple class="form-control">
+                {% for producto in productos %}
+                    <option value="{{ producto.id }}">{{ producto.nombre }} - {{ producto.precio }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Campo para ingresar cantidades por producto -->
+        <h4>Cantidad por Producto:</h4>
+        <div class="form-group">
+            {% for producto in productos %}
+                <label for="cantidad_{{ producto.id }}">{{ producto.nombre }}</label>
+                <input type="number" name="cantidad_{{ producto.id }}" id="cantidad_{{ producto.id }}" class="form-control" value="1" min="1">
+            {% endfor %}
+        </div>
+        
+        <button type="submit" class="btn btn-success">Guardar Compra</button>
+    </form>
+</div>
+{% endblock %}
